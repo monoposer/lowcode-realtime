@@ -1,0 +1,11 @@
+.git
+.gitignore
+.env
+*.md
+.idea
+.vscode
+*.log
+/tmp
+# Local build artifacts
+/server
+/bin

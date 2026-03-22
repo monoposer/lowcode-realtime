@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Realtime Playground</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <h1>Realtime Playground</h1>
+  <p class="sub">Standalone static page: set the <strong>Realtime backend</strong> below, connect over WebSocket, and call <code>POST /api/event</code>. The backend must allow CORS (e.g. <code>CORS_ALLOWED_ORIGINS=*</code> in dev).</p>
+
+  <section>
+    <h2>Realtime backend</h2>
+    <p class="hint">Docker Compose: API is usually <code>http://localhost:8080</code>; this page is served at <code>http://localhost:3000</code>.</p>
+    <div class="row cols-2">
+      <div>
+        <label for="backendBase">HTTP base URL (no trailing slash)</label>
+        <input id="backendBase" type="text" value="http://localhost:8080" autocomplete="url" />
+      </div>
+      <div class="btns" style="align-self:flex-end;padding-top:1.35rem">
+        <button type="button" id="btnSyncWs" class="secondary">Generate WebSocket URL from backend</button>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>WebSocket</h2>
+    <div class="row cols-2">
+      <div>
+        <label for="wsUrl">WebSocket URL (including query string)</label>
+        <input id="wsUrl" type="text" placeholder="ws://localhost:8080/ws?user_id=demo" />
+      </div>
+      <div>
+        <label for="channel">Channel</label>
+        <input id="channel" type="text" value="room1" />
+      </div>
+    </div>
+    <div class="row">
+      <div>
+        <label for="wsToken">JWT (optional — required when server has <code>JWT_SECRET</code>; sent as <code>?token=</code>)</label>
+        <input id="wsToken" type="text" placeholder="HS256 JWT" autocomplete="off" />
+      </div>
+    </div>
+    <div class="row">
+      <div>
+        <label for="listen">Subscription types (JSON array)</label>
+        <input id="listen" type="text" value='["broadcast"]' />
+      </div>
+    </div>
+    <div class="btns">
+      <button type="button" id="btnConnect">Connect &amp; subscribe</button>
+      <button type="button" id="btnDisconnect" class="secondary" disabled>Disconnect</button>
+      <span id="wsStatus" class="status">Disconnected</span>
+    </div>
+    <p class="hint">After connect, the page sends: <code>{"type":"subscribe","channel":"&lt;channel&gt;","listen":[...]}</code>. With JWT auth, omit <code>user_id</code> in the URL and paste the token above.</p>
+  </section>
+
+  <section>
+    <h2>Event via HTTP API</h2>
+    <div class="row cols-2">
+      <div>
+        <label for="apiChannel">channel</label>
+        <input id="apiChannel" type="text" value="room1" />
+      </div>
+      <div>
+        <label for="apiEvent">event (optional)</label>
+        <input id="apiEvent" type="text" placeholder="message" value="playground" />
+      </div>
+    </div>
+    <div class="row">
+      <label for="apiPayload">payload (JSON)</label>
+      <textarea id="apiPayload" spellcheck="false">{"text":"hello from API"}</textarea>
+    </div>
+    <div class="btns">
+      <button type="button" id="btnSendApi">POST /api/event</button>
+      <span id="apiStatus" class="status"></span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Event log</h2>
+    <div id="log"></div>
+    <div class="btns" style="margin-top:0.5rem">
+      <button type="button" id="btnClear" class="secondary">Clear log</button>
+    </div>
+  </section>
+
+  <script src="app.js" defer></script>
+</body>
+</html>

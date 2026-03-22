@@ -1,0 +1,73 @@
+:root {
+  --bg: #0f1419;
+  --surface: #1a2332;
+  --border: #2d3a4d;
+  --text: #e6edf3;
+  --muted: #8b9cb3;
+  --accent: #3b82f6;
+  --ok: #22c55e;
+  --err: #ef4444;
+}
+* { box-sizing: border-box; }
+body {
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  margin: 0;
+  padding: 1.25rem;
+  line-height: 1.5;
+}
+h1 { font-size: 1.25rem; margin: 0 0 0.5rem; font-weight: 600; }
+p.sub { color: var(--muted); font-size: 0.875rem; margin: 0 0 1rem; }
+section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+}
+h2 { font-size: 0.95rem; margin: 0 0 0.75rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+label { display: block; font-size: 0.8rem; color: var(--muted); margin-bottom: 0.25rem; }
+input, textarea, button, select {
+  font: inherit;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  padding: 0.5rem 0.65rem;
+  width: 100%;
+  max-width: 100%;
+}
+textarea { min-height: 88px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8rem; }
+.row { display: grid; gap: 0.75rem; margin-bottom: 0.75rem; }
+@media (min-width: 640px) {
+  .row.cols-2 { grid-template-columns: 1fr 1fr; }
+}
+button {
+  cursor: pointer;
+  background: var(--accent);
+  border-color: transparent;
+  font-weight: 600;
+  width: auto;
+  padding: 0.5rem 1rem;
+}
+button.secondary { background: var(--surface); border-color: var(--border); color: var(--text); }
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+.btns { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+#log {
+  background: #0a0e14;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.75rem;
+  min-height: 200px;
+  max-height: 420px;
+  overflow: auto;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.75rem;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+.status { font-size: 0.85rem; }
+.status.ok { color: var(--ok); }
+.status.err { color: var(--err); }
+.hint { font-size: 0.75rem; color: var(--muted); margin-top: 0.5rem; }
